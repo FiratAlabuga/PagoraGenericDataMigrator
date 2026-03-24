@@ -13,8 +13,8 @@ Pagora Migrator, büyük ölçekli verileri (örneğin 250 milyondan fazla satı
 
 ## 🛠️ Teknoloji Yığını
 
-* **Dil:** Java 17+
-* **Framework:** Spring Boot 3.2.x
+* **Dil:** Java 25+
+* **Framework:** Spring Boot 4.x
 * **Batch İşleme:** Spring Batch 6.0
 * **Veritabanları:** PostgreSQL (Hedef & Metadata), MySQL (Kaynak), SQLite
 * **Bağlantı Havuzu:** HikariCP
