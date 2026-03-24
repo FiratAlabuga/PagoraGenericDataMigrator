@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    # Bu bağlantı SADECE Spring Batch'in iç işleyişi içindir.
+    url: jdbc:postgresql://localhost:7543/migration_batch_db
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5
+
+  batch:
+    jdbc:
+      # Veritabanı boşsa Spring Batch'in tablolarını (BATCH_JOB_INSTANCE vs.) otomatik oluşturur
+      initialize-schema: always
+    job:
+      # Uygulama başlarken otomatik olarak bir Job çalıştırmasını engelliyoruz
+      enabled: false
+  application:
+    name: Migrator
+
+# Swagger arayüzüne http://localhost:8080/swagger-ui/index.html adresinden ulaşmak için
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
