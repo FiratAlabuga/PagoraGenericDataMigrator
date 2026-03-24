@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  mysql-source:
+    image: mysql:8.0.33
+    container_name: mysql-migration-source
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: migration_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init-db:/docker-entrypoint-initdb.d # Başlangıçta tabloyu kurmak için
+      - mysql_mdb_data:/var/lib/mysql
+  
+  # 2. Hedef ve Batch Metadata Veritabanı (PostgreSQL)
+  postgres-target:
+    image: postgres:16-alpine
+    container_name: migrator-postgres-target
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      # POSTGRES_DB parametresini vermiyoruz, init script ile 2 tane DB açacağız.
+    ports:
+      - "7543:5432"
+    volumes:
+      - ./postgres-init:/docker-entrypoint-initdb.d # Çoklu DB açılış scripti
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  mysql_mdb_data:
+  postgres_data:
